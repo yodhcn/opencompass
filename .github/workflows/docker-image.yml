@@ -1,0 +1,25 @@
+# https://docs.docker.com/build/ci/github-actions/share-image-jobs/
+name: ci
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and export
+        uses: docker/build-push-action@v6
+        with:
+          tags: opencompass:latest
+          outputs: type=docker,dest=${{ runner.temp }}/opencompass.tar
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: opencompass
+          path: ${{ runner.temp }}/opencompass.tar
