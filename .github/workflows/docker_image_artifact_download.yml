@@ -8,11 +8,16 @@ jobs:
   download:
     runs-on: ubuntu-latest
     steps:
-      - name: Build image
+      - name: pull image
         run: |
           docker pull langgenius/dify-api:1.0.0
 
-      - name: Docker Image Artifact Download
-        uses: ishworkh/docker-image-artifact-download@v2.1.0
+      - name: export image
+        run: |
+          docker export langgenius/dify-api:1.0.0 > ${{ runner.temp }}/image.tar
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
         with:
-          image: "langgenius/dify-api:1.0.0"
+          name: opencompass
+          path: ${{ runner.temp }}/image.tar
