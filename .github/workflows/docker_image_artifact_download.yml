@@ -8,11 +8,11 @@ jobs:
   download:
     runs-on: ubuntu-latest
     steps:
-    - name: Build image
-      run: |
-        docker pull langgenius/dify-api:1.0.0
+      - name: Build image
+        run: |
+          docker pull langgenius/dify-api:1.0.0
 
-    - name: Docker Image Artifact Download
+      - name: Docker Image Artifact Download
         uses: ishworkh/docker-image-artifact-download@v2.1.0
         with:
           image: "langgenius/dify-api:1.0.0"
