@@ -7,6 +7,7 @@ on:
       image:
         description: "Docker image to download (e.g., langgenius/dify-api:1.0.0)"
         required: true
+        default: "langgenius/dify-api:1.0.0"
 
 jobs:
   download:
@@ -14,14 +15,20 @@ jobs:
     steps:
       - name: pull image
         run: |
-          docker pull langgenius/dify-api:1.0.0
+          docker pull ${{ inputs.image }}
+
+      - name: generate filename
+        id: filename
+        run: |
+          SAFE_NAME=$(echo "${{ inputs.image }}" | sed 's/[\/:]/_/g')
+          echo "SAFE_NAME=${SAFE_NAME}" >> $GITHUB_ENV
 
       - name: save image
         run: |
-          docker save langgenius/dify-api:1.0.0 > ${{ runner.temp }}/image.tar
+          docker save ${{ inputs.image }} > ${{ runner.temp }}/$SAFE_NAME.tar
 
       - name: upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: image
-          path: ${{ runner.temp }}/image.tar
+          name: ${{ env.SAFE_NAME }}
+          path: ${{ runner.temp }}/$SAFE_NAME.tar
