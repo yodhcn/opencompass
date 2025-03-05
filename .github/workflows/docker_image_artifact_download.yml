@@ -9,7 +9,7 @@ jobs:
   download:
     runs-on: ubuntu-latest
     steps:
-      - name: Download an image
-        uses: ishworkh/container-image-artifact-download@v1.0.0
+      - name: Docker Image Artifact Download
+        uses: ishworkh/docker-image-artifact-download@v2.1.0
         with:
           image: "langgenius/dify-api"
