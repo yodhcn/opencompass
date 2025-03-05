@@ -12,9 +12,9 @@ jobs:
         run: |
           docker pull langgenius/dify-api:1.0.0
 
-      - name: export image
+      - name: save image
         run: |
-          docker export langgenius/dify-api:1.0.0 > ${{ runner.temp }}/image.tar
+          docker save langgenius/dify-api:1.0.0 > ${{ runner.temp }}/image.tar
 
       - name: upload artifact
         uses: actions/upload-artifact@v4
