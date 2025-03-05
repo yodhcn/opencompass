@@ -23,5 +23,5 @@ jobs:
       - name: upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: opencompass
+          name: image
           path: ${{ runner.temp }}/image.tar
