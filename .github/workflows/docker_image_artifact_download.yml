@@ -3,6 +3,10 @@ name: docker_image_artifact_download
 on:
   repository_dispatch:
   workflow_dispatch:
+    inputs:
+      image:
+        description: "Docker image to download (e.g., langgenius/dify-api:1.0.0)"
+        required: true
 
 jobs:
   download:
