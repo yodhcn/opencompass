@@ -1,4 +1,3 @@
-# https://docs.docker.com/build/ci/github-actions/share-image-jobs/
 name: docker_image_artifact_download
 
 on:
@@ -9,7 +8,11 @@ jobs:
   download:
     runs-on: ubuntu-latest
     steps:
-      - name: Docker Image Artifact Download
+    - name: Build image
+      run: |
+        docker pull langgenius/dify-api:1.0.0
+
+    - name: Docker Image Artifact Download
         uses: ishworkh/docker-image-artifact-download@v2.1.0
         with:
           image: "langgenius/dify-api:1.0.0"
