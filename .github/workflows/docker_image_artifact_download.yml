@@ -1,0 +1,25 @@
+# https://docs.docker.com/build/ci/github-actions/share-image-jobs/
+name: docker_image_artifact_download
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download an image
+        uses: ishworkh/container-image-artifact-download@v1.0.0
+        with:
+          image: "langgenius/dify-api"
+
+        with:
+          tags: opencompass:latest
+          outputs: type=docker,dest=${{ runner.temp }}/opencompass.tar
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: opencompass
+          path: ${{ runner.temp }}/opencompass.tar
